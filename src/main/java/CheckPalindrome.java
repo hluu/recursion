@@ -1,8 +1,8 @@
 import org.testng.Assert;
 
-public class CheckValindrome {
+public class CheckPalindrome {
     public static void main(String[] args) {
-        System.out.println("CheckValindrome.main");
+        System.out.println("CheckPalindrome.main");
 
         test("h", true);
         test("hh", true);

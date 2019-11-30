@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Given a set of integers, generate all possible combinations
  *
- * AKA - subsets, powerset
+ * AKA - subsets, power set
  *
  */
 public class GeneratePowerset {

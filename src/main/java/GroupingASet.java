@@ -13,14 +13,15 @@ public class GroupingASet {
 
     public static void  main(String[] args) {
 
+        //test("abc");
         test("abcd");
-        test("abcde");
+        //test("abcde");
     }
 
     private static void test(String input) {
         System.out.println("\ninput = [" + input + "]");
 
-        List<String> result = parentheses("abcd");
+        List<String> result = parentheses(input);
         for (String output : result) {
             System.out.println(output);
         }

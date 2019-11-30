@@ -32,19 +32,36 @@ public class EqualPartitions {
     public static void main(String[] args) {
         System.out.println("EqualPartitions.main");
 
-        test(new int[] {4, 3, 2, 3, 5, 2, 1}, 4, true);
-        test(new int[] {4, 3, 2, 3, 6, 2}, 4, false);
-        test(new int[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, 5, false);
+       // test(new int[] {1, 1, 3, 2, 2}, 3, true);
+       // test(new int[] {4, 3, 2, 3, 5, 2, 1}, 4, true);
+       // test(new int[] {4, 3, 2, 3, 6, 2}, 4, false);
+       // test(new int[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, 5, false);
+        test(new int[] {605,454,322,218,8,19,651,2220,175,710,2666,350,252,2264,327,1843},
+                4,  true);
     }
 
     private static void test(int[] input, int k, boolean expected) {
         System.out.println("\ninput = [" + Arrays.toString(input) + "]");
 
-        boolean actual = equalPartitions(input, k);
+        long startTime = System.nanoTime();
+        boolean actual1 = equalPartitions(input, k);
+        long endTime = System.nanoTime();
 
-        System.out.printf("expected: %b, actual: %b\n", expected, actual);
+        System.out.printf("equalPartitions time: %d (ms)\n",
+                (endTime-startTime)/100);
 
-        Assert.assertEquals(actual, expected);
+        startTime = System.nanoTime();
+        boolean actual2 = equalPartitionsByBucket(input, k);
+        endTime = System.nanoTime();
+
+        System.out.printf("equalPartitionsByBucket time: %d (ms)\n",
+                (endTime-startTime)/100);
+
+
+        System.out.printf("expected: %b, actual1: %b, actual2: %b\n",
+                expected, actual1, actual2);
+
+        Assert.assertEquals(actual1, expected);
     }
 
 
@@ -126,5 +143,85 @@ public class EqualPartitions {
             }
         }
         return true;
+    }
+
+    private static boolean equalPartitionsByBucket(int[] input, int k) {
+        // validation on k
+        // can't be 0 or negative
+        // can't be greater than input.length
+
+        if (k < 1 || k > input.length) {
+            return false;
+        }
+
+        int total = IntStream.of(input).sum();
+        int bucketSum = total / k;
+        System.out.printf("total: %d, k: %d, bucketSum: %d\n",
+                total, k, bucketSum);
+
+        if ((total % k) != 0) {
+            return false;
+        }
+
+
+        return canPartitionByBucket(input, 0, k, 0,  bucketSum,
+                new boolean[input.length]);
+    }
+
+    /**
+     * This approach tries to fill each bucket at a time before moving on to
+     * another bucket
+     * -  use an additional data structure to keep track of which numbers have been
+     *    used already
+     *
+     * Resources:
+     *  - https://github.com/bephrem1/backtobackswe/blob/master/Dynamic%20Programming%2C%20Recursion%2C%20%26%20Backtracking/PartitionIntoKEqualSumSubsets/PartitionIntoKEqualSumSubsets.java
+     *
+     *
+     * @param nums
+     * @param bucketNo
+     * @param bucketSumSoFar
+     * @param bucketTargetSum
+     * @return
+     */
+    private static boolean canPartitionByBucket(int[] nums,
+                                                int startIdx,
+                                                int bucketNo,
+                                                int bucketSumSoFar,
+                                                int bucketTargetSum,
+                                                boolean[] visited) {
+
+        // if all buckets are filled with sum equals to bucketTargetSum
+        // then we are good
+        if (bucketNo == 0) {
+            return true;
+        }
+
+        if (bucketSumSoFar == bucketTargetSum) {
+            // notice we reset bucketSumSoFar to 0 when moving on to another
+            // bucket
+            return canPartitionByBucket(nums,  0, bucketNo-1, 0,
+                    bucketTargetSum, visited);
+        }
+
+        // try all possible numbers for the current bucket
+        for (int idx = startIdx; idx < nums.length; idx++) {
+
+            if (!visited[idx] && ((bucketSumSoFar + nums[idx]) <= bucketTargetSum)) {
+                visited[idx] = true;
+
+                // since bucketSumSoFar is an intermediate variable,
+                // no need to back track it
+                if (canPartitionByBucket(nums, startIdx+1, bucketNo,
+                        bucketSumSoFar + nums[idx],
+                        bucketTargetSum, visited)) {
+                    return true;
+                }
+
+                visited[idx] = false;
+            }
+        }
+
+        return false;
     }
 }

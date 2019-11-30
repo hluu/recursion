@@ -17,10 +17,11 @@ public class PermutationWithMutableDS {
         //testPermutation(new int[] {3,2,1,0});
         testPermutationWithDuplicates(new int[] {1,2,1});
         testPermutationWithDuplicates(new int[] {1,2,1,2});
+        testPermutationWithDuplicates(new int[] {2,2,3,0});
     }
 
     private static void testPermutation(int[] input) {
-        System.out.println("input = [" + Arrays.toString(input) + "]");
+        System.out.println("\ninput = [" + Arrays.toString(input) + "]");
 
         List<int[]> result = permute(input);
 
@@ -30,7 +31,7 @@ public class PermutationWithMutableDS {
     }
 
     private static void testPermutationWithDuplicates(int[] input) {
-        System.out.println("input = [" + Arrays.toString(input) + "]");
+        System.out.println("\ninput = [" + Arrays.toString(input) + "]");
 
         List<int[]> result = permuteWithDuplicates(input);
 
