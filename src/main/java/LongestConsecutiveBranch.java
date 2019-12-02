@@ -52,6 +52,7 @@ public class LongestConsecutiveBranch {
                 int maxOfLeftRight= Math.max(lsbHelper(node.left, node.value, 1),
                         lsbHelper(node.right, node.value, 1));
 
+                // make sure to also compare the lenSofar
                 return Math.max(maxOfLeftRight, lenSoFar);
 
             }

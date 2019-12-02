@@ -135,18 +135,13 @@ public class SubsetSum {
     private static int countSubsetSumWithPruning(int[] input, int idx,
                                                   int sumSoFar, int target) {
 
-        // pruning if needed
-        if (sumSoFar > target) {
-            return 0;
-        }
-
         // if match anytime then print and return
         if (sumSoFar == target) {
             return 1;
         }
 
         // if reach leaf node, then return
-        if (idx == input.length) {
+        if (idx == input.length || sumSoFar > target) {
             return 0;
         } else {
             // exclude
