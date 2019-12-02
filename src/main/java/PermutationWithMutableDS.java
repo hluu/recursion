@@ -1,3 +1,6 @@
+
+import common.ArrayUtils;
+
 import java.util.*;
 
 /**
@@ -14,36 +17,43 @@ public class PermutationWithMutableDS {
     public static void main(String[] args) {
         System.out.println(PermutationWithMutableDS.class.getName());
 
-        //testPermutation(new int[] {3,2,1,0});
-        testPermutationWithDuplicates(new int[] {1,2,1});
-        testPermutationWithDuplicates(new int[] {1,2,1,2});
-        testPermutationWithDuplicates(new int[] {2,2,3,0});
+        testPermutation(new int[] {1,2,3});
+
     }
 
     private static void testPermutation(int[] input) {
         System.out.println("\ninput = [" + Arrays.toString(input) + "]");
 
+        System.out.println("===> permute <=== ");
         List<int[]> result = permute(input);
 
         for (int[] row : result) {
             System.out.println("Arrays.toString(row) = " + Arrays.toString(row));
         }
-    }
 
-    private static void testPermutationWithDuplicates(int[] input) {
-        System.out.println("\ninput = [" + Arrays.toString(input) + "]");
+        System.out.println("===> permute2 <=== ");
+        List<String> resultString = permute2(input);
 
-        List<int[]> result = permuteWithDuplicates(input);
-
-        for (int[] row : result) {
-            System.out.println("Arrays.toString(row) = " + Arrays.toString(row));
+        for (String row : resultString) {
+            System.out.println(row);
         }
+
     }
+
+
 
     private static List<int[]> permute(int[] input) {
         List<int[]> collector = new ArrayList<>();
 
         permuteHelper(input, 0, collector);
+
+        return collector;
+    }
+
+    private static List<String> permute2(int[] input) {
+        List<String> collector = new ArrayList<>();
+
+        permuteHelper2(input, 0, "", collector);
 
         return collector;
     }
@@ -70,13 +80,34 @@ public class PermutationWithMutableDS {
             // place it at startIdx and permute the remaining
             for (int i = startIdx; i < input.length; i++) {
                 // move element at i to startIdx
-                swap(input, i, startIdx);
+                ArrayUtils.swap(input, i, startIdx);
 
                 // pass down the subproblem (startIdx+1)
                 permuteHelper(input, startIdx+1, collector);
 
                 // restore it back to original state
-                swap(input, i, startIdx);
+                ArrayUtils.swap(input, i, startIdx);
+            }
+        }
+    }
+
+    private static void permuteHelper2(int[] input, int startIdx, String soFar,
+                                      List<String> collector) {
+
+        if (startIdx >= input.length) {
+            collector.add(soFar);
+        } else {
+            // for each element in input starting at startIdx,
+            // place it at startIdx and permute the remaining
+            for (int i = startIdx; i < input.length; i++) {
+                // move element at i to startIdx
+                ArrayUtils.swap(input, i, startIdx);
+
+                // pass down the subproblem (startIdx+1)
+                permuteHelper2(input, startIdx+1, soFar + input[startIdx], collector);
+
+                // restore it back to original state
+                ArrayUtils.swap(input, i, startIdx);
             }
         }
     }
@@ -119,20 +150,15 @@ public class PermutationWithMutableDS {
 
                 seenSoFar.add(input[i]);
                 // move element at i to startIdx
-                swap(input, i, startIdx);
+                ArrayUtils.swap(input, i, startIdx);
 
                 // pass down the subproblem (startIdx+1)
                 permuteWithDuplicatesHelper(input, startIdx+1, collector);
 
                 // restore it back to original state
-                swap(input, i, startIdx);
+                ArrayUtils.swap(input, i, startIdx);
             }
         }
     }
 
-    private static void swap(int[] input, int i, int j) {
-        int tmp = input[i];
-        input[i] = input[j];
-        input[j] = tmp;
-    }
 }

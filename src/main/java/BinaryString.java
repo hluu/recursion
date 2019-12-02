@@ -53,6 +53,9 @@ public class BinaryString {
         }
 
         Assert.assertEquals(result1.size(), result2.size());
+
+        System.out.println("====> Mutable Ds <=====");
+        mutableDS(n);
     }
 
     /**
@@ -129,6 +132,25 @@ public class BinaryString {
 
         return Collections.emptyList();
 
+    }
+
+    private static void mutableDS(int numDigits) {
+        mutableDSHelper(numDigits, new ArrayList<Integer>());
+    }
+
+    private static void mutableDSHelper(int digit, List<Integer> soFar) {
+        if (digit == 0) {
+            System.out.println(soFar);
+        } else {
+            soFar.add(0);
+            mutableDSHelper(digit-1, soFar);
+            soFar.remove(soFar.size()-1);
+
+            soFar.add(1);
+            mutableDSHelper(digit-1, soFar);
+            soFar.remove(soFar.size()-1);
+
+        }
     }
 
 }

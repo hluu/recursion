@@ -1,3 +1,5 @@
+import org.testng.Assert;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,8 +37,8 @@ public class SubsetSum {
         System.out.printf("input: %s, target: %d\n", Arrays.toString(input),
                 target);
 
-        System.out.println("------ output printSubsetSum -------");
-        printSubsetSum(input, 0, new ArrayList<>(), target);
+        System.out.println("------ output printSubsetSums -------");
+        printSubsetSums(input, 0, new ArrayList<>(), target);
 
         System.out.println("------ output printSubsetSumWithPruning -------");
         printSubsetSumWithPruning(input, 0, new ArrayList<>(), 0, target);
@@ -50,30 +52,34 @@ public class SubsetSum {
         int actual = countSubsetSumWithPruning(input, 0, 0, target);
 
         System.out.printf("expected: %d, actual: %d\n", expected, actual);
+
+        Assert.assertEquals(actual, expected);
     }
 
-    private static void printSubsetSum(int[] input, int idx,
-                                       List<Integer> path, int target) {
+    private static void printSubsetSums(int[] input, int idx,
+                                        List<Integer> path, int target) {
 
         // base case
         if (idx == input.length) {
-            int sumTmp = 0;
-            for (int val : path) {
-                sumTmp += val;
-            }
+            //int sumTmp = path.stream().reduce(0, (a, b) -> a + b);
+
+            int sumTmp = path.stream().mapToInt(Integer::intValue).sum();
             if (sumTmp == target) {
                 System.out.println(path);
             }
         } else {
             // exclude
-            printSubsetSum(input, idx+1, path, target);
+            printSubsetSums(input, idx+1, path, target);
 
             // include, why do we need to create a new list?
             // because the newPath is passed down to another recursion path
             // that includes the input[idx]
-            List<Integer> newPath = new ArrayList<>(path);
-            newPath.add(input[idx]);
-            printSubsetSum(input, idx+1, newPath, target);
+            //List<Integer> newPath = new ArrayList<>(path);
+
+            path.add(input[idx]);
+            printSubsetSums(input, idx+1, path, target);
+
+            path.remove(path.size()-1);
         }
     }
 
@@ -103,10 +109,13 @@ public class SubsetSum {
             // include, why do we need to create a new list?
             // because the newPath is passed down to another recursion path
             // that includes the input[idx]
-            List<Integer> newPath = new ArrayList<>(path);
-            newPath.add(input[idx]);
-            printSubsetSumWithPruning(input, idx+1, newPath,
+            //List<Integer> newPath = new ArrayList<>(path);
+            //newPath.add(input[idx]);
+
+            path.add(input[idx]);
+            printSubsetSumWithPruning(input, idx+1, path,
                     sumSoFar+ input[idx], target);
+            path.remove(path.size()-1);
         }
     }
 
