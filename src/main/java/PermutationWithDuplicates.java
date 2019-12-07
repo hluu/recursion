@@ -7,24 +7,25 @@ public class PermutationWithDuplicates {
         System.out.println("PermutationWithDuplicates.main");
 
         testPermutationWithDuplicates(new int[] {1,2,1});
-        testPermutationWithDuplicates(new int[] {1,2,1,2});
-        testPermutationWithDuplicates(new int[] {2,2,3,0});
-        testPermutationWithDuplicates(new int[] {1,2,3,1,2});
+        //testPermutationWithDuplicates(new int[] {1,2,1,2});
+        //testPermutationWithDuplicates(new int[] {2,2,3,0});
+        //testPermutationWithDuplicates(new int[] {1,2,3,1,2});
     }
 
 
     private static void testPermutationWithDuplicates(int[] input) {
         System.out.println("\ninput = [" + Arrays.toString(input) + "]");
 
-        List<int[]> result = permuteWithDuplicates(input);
+        List<String> result = permuteWithDuplicates(input);
 
-        for (int[] row : result) {
-            System.out.println("Arrays.toString(row) = " + Arrays.toString(row));
+        Collections.sort(result);
+        for (String row : result) {
+            System.out.println(row);
         }
     }
 
-    private static List<int[]> permuteWithDuplicates(int[] input) {
-        List<int[]> collector = new ArrayList<>();
+    private static List<String> permuteWithDuplicates(int[] input) {
+        List<String> collector = new ArrayList<>();
 
         permuteWithDuplicatesHelper(input, 0, collector);
 
@@ -44,10 +45,10 @@ public class PermutationWithDuplicates {
      * @param collector
      */
     private static void permuteWithDuplicatesHelper(int[] input, int startIdx,
-                                                    List<int[]> collector) {
+                                                    List<String> collector) {
 
         if (startIdx >= input.length) {
-            collector.add(input.clone());
+            collector.add(Arrays.toString(input));
         } else {
             Set<Integer> seenSoFar = new HashSet<>();
             // for each element in input starting at startIdx,

@@ -34,6 +34,8 @@ import java.util.Map;
  *   - when a single character remains
  *   - when 2 characters with value < 27
  *   - when input can be splitted into its own parts
+ *
+ *   https://leetcode.com/problems/decode-ways/
  */
 public class DecodeWays {
     public static void main(String[] args) {
@@ -93,17 +95,17 @@ public class DecodeWays {
         }
 
 
-        int oneChar = numWaysHelper(remaining.substring(1));
+        int oneCharPathCount = numWaysHelper(remaining.substring(1));
 
-        int twoChar = 0;
+        int twoCharPathCount = 0;
         String twoCharPrefix = remaining.substring(0, 2);
         if (Integer.parseInt(twoCharPrefix) > 26) {
-            twoChar = 0;
+            twoCharPathCount = 0;
         } else {
-            twoChar = numWaysHelper(remaining.substring(2));
+            twoCharPathCount = numWaysHelper(remaining.substring(2));
         }
 
-        return oneChar + twoChar;
+        return oneCharPathCount + twoCharPathCount;
     }
 
 

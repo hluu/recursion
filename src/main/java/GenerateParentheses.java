@@ -27,6 +27,7 @@ import java.util.List;
  *
  * Resources:
  * -https://sahandsaba.com/interview-question-generating-all-balanced-parentheses.html
+ * - https://leetcode.com/problems/generate-parentheses/
  */
 public class GenerateParentheses {
     public static void main(String[] args) {

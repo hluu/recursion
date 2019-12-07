@@ -24,7 +24,7 @@ public class GeneratePowerset {
 
         usingIncludeExcludePattern(input, 0, new ArrayList<>(), coll1);
 
-        System.out.println("=====> output <========");
+        System.out.println("=====> output from usingIncludeExcludePattern <========");
 
         for (List<Integer> comb : coll1) {
             System.out.println(comb.toString());
@@ -33,6 +33,16 @@ public class GeneratePowerset {
         System.out.printf("expected # combo: %d, actual # combo: %d\n",
                 coll1.size(), expectedNumCombo);
 
+        List<List<Integer>> coll2 = new ArrayList<List<Integer>>();
+        usingIncludeAndIterationPattern(input, 0, new ArrayList<>(),
+                coll2);
+
+        System.out.println("=====> output from usingIncludeAndIterationPattern <========");
+        for (List<Integer> comb : coll2) {
+            System.out.println(comb.toString());
+        }
+
+        System.out.println();
     }
 
     /**
@@ -66,6 +76,21 @@ public class GeneratePowerset {
             List<Integer> newPath = new ArrayList<>(path);
             newPath.add(input[idx]);
             usingIncludeExcludePattern(input, idx+1, newPath, coll);
+        }
+    }
+
+    private static void usingIncludeAndIterationPattern(int[] input, int idx,
+                                                        List<Integer> path,
+                                                        List<List<Integer>> coll) {
+        if (idx >= input.length) {
+            return;
+        }
+
+        for (int i = idx; i < input.length; i++) {
+            path.add(input[i]);
+            coll.add(new ArrayList<>(path));
+            usingIncludeAndIterationPattern(input, i+1, path, coll);
+            path.remove(path.size()-1);
         }
     }
 

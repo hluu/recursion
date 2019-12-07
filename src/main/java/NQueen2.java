@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ public class NQueen2 {
         test(3);
         test(4);
         test(5);
+        test(8);
     }
 
     private static void test(int boardSize) {
@@ -23,11 +25,14 @@ public class NQueen2 {
 
         placeQueens(boardSize, 0, new ArrayList<>(), collector);
 
-        System.out.println("==> Board positions <==");
+        System.out.printf("==> Board positions: %d <==\n",
+                collector.size());
 
         for (List<Integer> board : collector) {
             System.out.println(board);
+            NQueen.printBoard(board.stream().mapToInt(Integer::intValue).toArray());
             System.out.println("validBoard: " + isValidBoard(board));
+            System.out.println();
         }
     }
 

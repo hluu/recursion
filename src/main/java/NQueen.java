@@ -144,7 +144,7 @@ public class NQueen {
         return true;
     }
 
-    private static void printBoard(int[] board) {
+    public static void printBoard(int[] board) {
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board.length; col++) {
                 if (board[row] == col) {

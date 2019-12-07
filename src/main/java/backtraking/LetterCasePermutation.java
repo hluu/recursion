@@ -16,6 +16,8 @@ import java.util.List;
  *
  * Input: S = "12345"
  * Output: ["12345"]
+ *
+ * https://leetcode.com/problems/letter-case-permutation/
  */
 public class LetterCasePermutation {
 
@@ -24,6 +26,7 @@ public class LetterCasePermutation {
         test("12345", 1);
         test("a1b2", 4);
         test("3z4", 2);
+        test("t0d0", 4);
     }
 
     private static void test(String input, int expected) {
@@ -36,6 +39,17 @@ public class LetterCasePermutation {
                 expected, result.size());
 
         for (String s : result) {
+            System.out.println(s);
+        }
+
+
+        System.out.println("=====> lcpWithMutableDS <========");
+        List<String> result2 = lcpWithMutableDS(input);
+
+        System.out.printf("expected: %d, actual2: %d\n",
+                expected, result2.size());
+
+        for (String s : result2) {
             System.out.println(s);
         }
     }
@@ -54,14 +68,45 @@ public class LetterCasePermutation {
         if (idx == input.length()) {
             coll.add(soFar);
             return;
-        }
-
-        char currChar = input.charAt(idx);
-        if (Character.isAlphabetic(currChar)) {
-            helper(input, idx+1, soFar + Character.toLowerCase(currChar), coll);
-            helper(input, idx+1, soFar + Character.toUpperCase(currChar), coll);
         } else {
-            helper(input, idx+1, soFar + currChar, coll);
+
+            char currChar = input.charAt(idx);
+            if (Character.isAlphabetic(currChar)) {
+                helper(input, idx + 1, soFar + Character.toLowerCase(currChar), coll);
+                helper(input, idx + 1, soFar + Character.toUpperCase(currChar), coll);
+            } else {
+                helper(input, idx + 1, soFar + currChar, coll);
+            }
         }
     }
+
+    private static List<String> lcpWithMutableDS(String input) {
+        List<String> result = new ArrayList<>();
+
+        char[] buffer = new char[input.length()];
+
+        helperWithMutableDS(input, 0, buffer, result);
+        return result;
+    }
+
+    private static void helperWithMutableDS(String input, int idx, char[] buffer,
+                                            List<String> coll) {
+
+        if (idx == input.length()) {
+            coll.add(new String(buffer));
+            return;
+        } else {
+            char currChar = input.charAt(idx);
+            if (Character.isAlphabetic(currChar)) {
+                buffer[idx] = Character.toLowerCase(currChar);
+                helperWithMutableDS(input, idx + 1, buffer, coll);
+                buffer[idx] = Character.toUpperCase(currChar);
+                helperWithMutableDS(input, idx + 1, buffer, coll);
+            } else {
+                buffer[idx] = currChar;
+                helperWithMutableDS(input, idx + 1, buffer, coll);
+            }
+        }
+    }
+
 }

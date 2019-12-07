@@ -62,6 +62,7 @@ public class PermutationWithMutableDS {
      * This example is using mutable data structure to minimize object
      * creation.
      *
+     * This one does need to use the intermediate partial solution
      *
      * So need to keep undo the work as it comes back from recursion.
      * Is that clear, make sure to understand that well
@@ -91,6 +92,17 @@ public class PermutationWithMutableDS {
         }
     }
 
+    /**
+     *
+     * This one does not create new objects from modifying the subproblem
+     * and builds the partial solution using intermedate variable called soFar
+     *
+     *
+     * @param input
+     * @param startIdx
+     * @param soFar
+     * @param collector
+     */
     private static void permuteHelper2(int[] input, int startIdx, String soFar,
                                       List<String> collector) {
 
@@ -112,53 +124,5 @@ public class PermutationWithMutableDS {
         }
     }
 
-
-    private static List<int[]> permuteWithDuplicates(int[] input) {
-        List<int[]> collector = new ArrayList<>();
-
-        permuteWithDuplicatesHelper(input, 0, collector);
-
-        return collector;
-    }
-
-    /**
-     * This example is using mutable data structure to minimize object
-     * creation and handle duplicates
-     *
-     * - the key is to keep track of what has been before inside the for loop
-     * - and skip an element if we've seen it before
-     *
-     *
-     * @param input
-     * @param startIdx
-     * @param collector
-     */
-    private static void permuteWithDuplicatesHelper(int[] input, int startIdx,
-                                      List<int[]> collector) {
-
-        if (startIdx >= input.length) {
-            collector.add(input.clone());
-        } else {
-            Set<Integer> seenSoFar = new HashSet<>();
-            // for each element in input starting at startIdx,
-            // place it at startIdx and permute the remaining
-            for (int i = startIdx; i < input.length; i++) {
-
-                if (seenSoFar.contains(input[i])) {
-                    continue;
-                }
-
-                seenSoFar.add(input[i]);
-                // move element at i to startIdx
-                ArrayUtils.swap(input, i, startIdx);
-
-                // pass down the subproblem (startIdx+1)
-                permuteWithDuplicatesHelper(input, startIdx+1, collector);
-
-                // restore it back to original state
-                ArrayUtils.swap(input, i, startIdx);
-            }
-        }
-    }
 
 }
