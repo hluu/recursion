@@ -1,5 +1,4 @@
-import common.ListNodeUtil;
-import common.Node;
+import common.TreeNode;
 
 import java.util.*;
 
@@ -54,13 +53,13 @@ public class GenerateAllPossibleFullBinaryTrees {
         System.out.println("\nn = [" + n + "]");
 
         long startTime = System.nanoTime();
-        List<Node> result1 = recursion(n);
+        List<TreeNode> result1 = recursion(n);
         long stopTime = System.nanoTime();
         printElapsedTime("recursion", startTime, stopTime);
 
 
         startTime = System.nanoTime();
-        List<Node> result2 = recursionWithDP(n);
+        List<TreeNode> result2 = recursionWithDP(n);
         stopTime = System.nanoTime();
         printElapsedTime("recursionWithDP", startTime, stopTime);
 
@@ -68,7 +67,7 @@ public class GenerateAllPossibleFullBinaryTrees {
                 expected, result1.size(), result2.size());
 
         /*System.out.println("\n====== serialize trees =======");
-        for (Node node : result) {
+        for (TreeNode node : result) {
             System.out.println(ListNodeUtil.serialize(node));
         }*/
     }
@@ -110,29 +109,29 @@ public class GenerateAllPossibleFullBinaryTrees {
      *
      *
      * @param n
-     * @return List<Node> - number of tree with n nodes
+     * @return List<TreeNode> - number of tree with n nodes
      */
-    private static List<Node> recursion(int n) {
+    private static List<TreeNode> recursion(int n) {
         if (n == 1) {
             // base case
-            return Arrays.asList(Node.createNode(0));
+            return Arrays.asList(TreeNode.createNode(0));
         } else {
             // what are the choices
-            List<Node> tmpResult = new ArrayList<>();
+            List<TreeNode> tmpResult = new ArrayList<>();
 
             // why n+2 step? because use 2 nodes each time (one for left, one for right)
             for (int size = 1; size <= (n-1); size = size+2) {
                 // (1, n-1-1), (2, n-1-2), (3, n-1-3)....
                 // left side
-                List<Node> leftSideTrees = recursion(size);
+                List<TreeNode> leftSideTrees = recursion(size);
 
                 // right side
-                List<Node> rightSideTrees = recursion(n - 1 - size);
+                List<TreeNode> rightSideTrees = recursion(n - 1 - size);
 
                 // generate all combinations
-                for (Node leftTree : leftSideTrees) {
-                    for (Node rightTree : rightSideTrees) {
-                        Node parent = Node.createNode(0);
+                for (TreeNode leftTree : leftSideTrees) {
+                    for (TreeNode rightTree : rightSideTrees) {
+                        TreeNode parent = TreeNode.createNode(0);
                         parent.left = leftTree;
                         parent.right = rightTree;
                         tmpResult.add(parent);
@@ -144,41 +143,41 @@ public class GenerateAllPossibleFullBinaryTrees {
         }
     }
 
-    private static List<Node> recursionWithDP(int n) {
-        Map<Integer, List<Node>> cache = new HashMap<>();
+    private static List<TreeNode> recursionWithDP(int n) {
+        Map<Integer, List<TreeNode>> cache = new HashMap<>();
 
         return recursionWithDPHelper(n, cache);
     }
 
 
-    private static List<Node> recursionWithDPHelper(int n,
-                                                    Map<Integer, List<Node>> cache) {
+    private static List<TreeNode> recursionWithDPHelper(int n,
+                                                        Map<Integer, List<TreeNode>> cache) {
 
         if (cache.containsKey(n)) {
             return cache.get(n);
         }
 
-        List<Node> result = null;
+        List<TreeNode> result = null;
         if (n == 1) {
             // base case
-            result = Arrays.asList(Node.createNode(0));
+            result = Arrays.asList(TreeNode.createNode(0));
         } else {
             // what are the choices
-            List<Node> tmpResult = new ArrayList<>();
+            List<TreeNode> tmpResult = new ArrayList<>();
 
             // why n+2 step? because use 2 nodes each time (one for left, one for right)
             for (int size = 1; size <= (n-1); size = size+2) {
                 // (1, n-1-1), (2, n-1-2), (3, n-1-3)....
                 // left side
-                List<Node> leftSideTrees = recursionWithDPHelper(size, cache);
+                List<TreeNode> leftSideTrees = recursionWithDPHelper(size, cache);
 
                 // right side
-                List<Node> rightSideTrees = recursionWithDPHelper(n - 1 - size, cache);
+                List<TreeNode> rightSideTrees = recursionWithDPHelper(n - 1 - size, cache);
 
                 // generate all combinations
-                for (Node leftTree : leftSideTrees) {
-                    for (Node rightTree : rightSideTrees) {
-                        Node parent = Node.createNode(0);
+                for (TreeNode leftTree : leftSideTrees) {
+                    for (TreeNode rightTree : rightSideTrees) {
+                        TreeNode parent = TreeNode.createNode(0);
                         parent.left = leftTree;
                         parent.right = rightTree;
                         tmpResult.add(parent);

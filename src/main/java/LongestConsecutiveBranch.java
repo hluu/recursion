@@ -1,4 +1,4 @@
-import common.Node;
+import common.TreeNode;
 
 /**
  *  Given a tree, write a function to find the length of the longest
@@ -19,7 +19,7 @@ public class LongestConsecutiveBranch {
         test(createTree2(), 5);
     }
 
-    private static void test(Node root, int expected) {
+    private static void test(TreeNode root, int expected) {
 
         System.out.println("\n=======> testing <========");
 
@@ -28,29 +28,29 @@ public class LongestConsecutiveBranch {
         System.out.printf("expected: %d, actual: %d\n", expected, actual);
     }
 
-    private static int lsb(Node node) {
+    private static int lsb(TreeNode node) {
         if (node == null) {
             return 0;
         }
 
-        int maxLeft = lsbHelper(node.left, node.value, 1);
-        int maxRight = lsbHelper(node.right, node.value, 1);
+        int maxLeft = lsbHelper(node.left, node.val, 1);
+        int maxRight = lsbHelper(node.right, node.val, 1);
         return Math.max(maxLeft, maxRight);
     }
 
-    private static int lsbHelper(Node node, int prevValue, int lenSoFar) {
+    private static int lsbHelper(TreeNode node, int prevValue, int lenSoFar) {
         if (node == null) {
             return lenSoFar;
         } else {
-            if (node.value == (prevValue) +1) {
+            if (node.val == (prevValue) +1) {
                 // consecutive
-                return Math.max(lsbHelper(node.left, node.value, lenSoFar+1),
-                        lsbHelper(node.right, node.value, lenSoFar+1));
+                return Math.max(lsbHelper(node.left, node.val, lenSoFar+1),
+                        lsbHelper(node.right, node.val, lenSoFar+1));
             } else {
                 // not consecutive, return max of left, right, and current length
                 // start a new sequence
-                int maxOfLeftRight= Math.max(lsbHelper(node.left, node.value, 1),
-                        lsbHelper(node.right, node.value, 1));
+                int maxOfLeftRight= Math.max(lsbHelper(node.left, node.val, 1),
+                        lsbHelper(node.right, node.val, 1));
 
                 // make sure to also compare the lenSofar
                 return Math.max(maxOfLeftRight, lenSoFar);
@@ -60,38 +60,38 @@ public class LongestConsecutiveBranch {
 
     }
 
-    private static Node createTree1() {
-        Node root = Node.createNode(0);
+    private static TreeNode createTree1() {
+        TreeNode root = TreeNode.createNode(0);
 
-        root.left = Node.createNode(1);
-        root.right = Node.createNode(2);
+        root.left = TreeNode.createNode(1);
+        root.right = TreeNode.createNode(2);
 
-        root.left.left = Node.createNode(1);
-        root.left.right = Node.createNode(2);
+        root.left.left = TreeNode.createNode(1);
+        root.left.right = TreeNode.createNode(2);
 
-        root.right.left = Node.createNode(1);
-        root.right.right = Node.createNode(3);
+        root.right.left = TreeNode.createNode(1);
+        root.right.right = TreeNode.createNode(3);
 
         return root;
 
     }
 
-    private static Node createTree2() {
-        Node root = Node.createNode(0);
+    private static TreeNode createTree2() {
+        TreeNode root = TreeNode.createNode(0);
 
-        root.left = Node.createNode(1);
-        root.right = Node.createNode(2);
+        root.left = TreeNode.createNode(1);
+        root.right = TreeNode.createNode(2);
 
-        root.left.left = Node.createNode(1);
-        root.left.right = Node.createNode(2);
+        root.left.left = TreeNode.createNode(1);
+        root.left.right = TreeNode.createNode(2);
 
-        root.right.left = Node.createNode(1);
-        root.right.right = Node.createNode(3);
+        root.right.left = TreeNode.createNode(1);
+        root.right.right = TreeNode.createNode(3);
 
-        root.right.left.left = Node.createNode(2);
-        root.right.left.left.left = Node.createNode(3);
-        root.right.left.left.left.left = Node.createNode(4);
-        root.right.left.left.left.left.left = Node.createNode(5);
+        root.right.left.left = TreeNode.createNode(2);
+        root.right.left.left.left = TreeNode.createNode(3);
+        root.right.left.left.left.left = TreeNode.createNode(4);
+        root.right.left.left.left.left.left = TreeNode.createNode(5);
 
         return root;
 

@@ -1,4 +1,4 @@
-import common.Node;
+import common.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class MinDistBetweenBSTNode {
         test(createTree2(), 1);
     }
 
-    private static void test(Node node, int expected) {
+    private static void test(TreeNode node, int expected) {
         System.out.println("\nnode: " + node);
 
         int actual = minDist(node);
@@ -51,7 +51,7 @@ public class MinDistBetweenBSTNode {
         System.out.printf("expected: %d, actual: %d\n", expected, actual);
     }
 
-    private static int minDist(Node node) {
+    private static int minDist(TreeNode node) {
         List<Integer> list = new ArrayList<>();
 
         // collect the list
@@ -69,23 +69,23 @@ public class MinDistBetweenBSTNode {
         return minDiff;
     }
 
-    private static void preOrderTraversal(Node node, List<Integer> coll) {
+    private static void preOrderTraversal(TreeNode node, List<Integer> coll) {
         if (node == null) {
             return;
         }
 
         preOrderTraversal(node.left, coll);
-        coll.add(node.value);
+        coll.add(node.val);
         preOrderTraversal(node.right, coll);
     }
 
-    private static Node createTree1() {
-        Node root = Node.createNode(4);
-        root.left  = Node.createNode(2);
-        root.right  = Node.createNode(6);
+    private static TreeNode createTree1() {
+        TreeNode root = TreeNode.createNode(4);
+        root.left  = TreeNode.createNode(2);
+        root.right  = TreeNode.createNode(6);
 
-        root.left.left  = Node.createNode(1);
-        root.left.right  = Node.createNode(3);
+        root.left.left  = TreeNode.createNode(1);
+        root.left.right  = TreeNode.createNode(3);
 
         return root;
     }
@@ -102,15 +102,15 @@ public class MinDistBetweenBSTNode {
      *
      **/
 
-    private static Node createTree2() {
-        Node root = Node.createNode(90);
-        root.left  = Node.createNode(69);
+    private static TreeNode createTree2() {
+        TreeNode root = TreeNode.createNode(90);
+        root.left  = TreeNode.createNode(69);
 
 
-        root.left.left  = Node.createNode(49);
-        root.left.right  = Node.createNode(89);
+        root.left.left  = TreeNode.createNode(49);
+        root.left.right  = TreeNode.createNode(89);
 
-        root.left.left.right  = Node.createNode(52);
+        root.left.left.right  = TreeNode.createNode(52);
 
         return root;
     }

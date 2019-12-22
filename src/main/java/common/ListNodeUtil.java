@@ -13,7 +13,7 @@ public class ListNodeUtil {
         test(createTree5(), "0,0,0,0,0,null,null,0,0");
     }
 
-    public static void test(Node node, String expected) {
+    public static void test(TreeNode node, String expected) {
         String actual = serialize(node);
 
         System.out.println("\nexpected: " + expected);
@@ -34,17 +34,17 @@ public class ListNodeUtil {
      *
      * @return
      */
-    private static Node createTree1() {
-        Node root = Node.createNode(0);
+    private static TreeNode createTree1() {
+        TreeNode root = TreeNode.createNode(0);
 
-        root.left = Node.createNode(0);
-        root.right = Node.createNode(0);
+        root.left = TreeNode.createNode(0);
+        root.right = TreeNode.createNode(0);
 
-        root.right.left = Node.createNode(0);
-        root.right.right = Node.createNode(0);
+        root.right.left = TreeNode.createNode(0);
+        root.right.right = TreeNode.createNode(0);
 
-        root.right.right.left = Node.createNode(0);
-        root.right.right.right = Node.createNode(0);
+        root.right.right.left = TreeNode.createNode(0);
+        root.right.right.right = TreeNode.createNode(0);
 
         return root;
     }
@@ -62,17 +62,17 @@ public class ListNodeUtil {
      *
      * @return
      */
-    private static Node createTree2() {
-        Node root = Node.createNode(0);
+    private static TreeNode createTree2() {
+        TreeNode root = TreeNode.createNode(0);
 
-        root.left = Node.createNode(0);
-        root.right = Node.createNode(0);
+        root.left = TreeNode.createNode(0);
+        root.right = TreeNode.createNode(0);
 
-        root.right.left = Node.createNode(0);
-        root.right.right = Node.createNode(0);
+        root.right.left = TreeNode.createNode(0);
+        root.right.right = TreeNode.createNode(0);
 
-        root.right.left.left = Node.createNode(0);
-        root.right.left.right = Node.createNode(0);
+        root.right.left.left = TreeNode.createNode(0);
+        root.right.left.right = TreeNode.createNode(0);
 
         return root;
     }
@@ -88,18 +88,18 @@ public class ListNodeUtil {
      *
      * @return
      */
-    private static Node createTree3() {
-        Node root = Node.createNode(0);
-        root.left = Node.createNode(0);
-        root.right = Node.createNode(0);
+    private static TreeNode createTree3() {
+        TreeNode root = TreeNode.createNode(0);
+        root.left = TreeNode.createNode(0);
+        root.right = TreeNode.createNode(0);
 
 
-        root.left.left = Node.createNode(0);
-        root.left.right = Node.createNode(0);
+        root.left.left = TreeNode.createNode(0);
+        root.left.right = TreeNode.createNode(0);
 
 
-        root.right.left = Node.createNode(0);
-        root.right.right = Node.createNode(0);
+        root.right.left = TreeNode.createNode(0);
+        root.right.right = TreeNode.createNode(0);
 
         return root;
     }
@@ -117,18 +117,18 @@ public class ListNodeUtil {
      *
      * @return
      */
-    private static Node createTree4() {
-        Node root = Node.createNode(0);
-        root.left = Node.createNode(0);
-        root.right = Node.createNode(0);
+    private static TreeNode createTree4() {
+        TreeNode root = TreeNode.createNode(0);
+        root.left = TreeNode.createNode(0);
+        root.right = TreeNode.createNode(0);
 
 
-        root.left.left = Node.createNode(0);
-        root.left.right = Node.createNode(0);
+        root.left.left = TreeNode.createNode(0);
+        root.left.right = TreeNode.createNode(0);
 
 
-        root.left.right.left = Node.createNode(0);
-        root.left.right.right = Node.createNode(0);
+        root.left.right.left = TreeNode.createNode(0);
+        root.left.right.right = TreeNode.createNode(0);
 
         return root;
     }
@@ -146,18 +146,18 @@ public class ListNodeUtil {
      *
      * @return
      */
-    private static Node createTree5() {
-        Node root = Node.createNode(0);
-        root.left = Node.createNode(0);
-        root.right = Node.createNode(0);
+    private static TreeNode createTree5() {
+        TreeNode root = TreeNode.createNode(0);
+        root.left = TreeNode.createNode(0);
+        root.right = TreeNode.createNode(0);
 
 
-        root.left.left = Node.createNode(0);
-        root.left.right = Node.createNode(0);
+        root.left.left = TreeNode.createNode(0);
+        root.left.right = TreeNode.createNode(0);
 
 
-        root.left.left.left = Node.createNode(0);
-        root.left.left.right = Node.createNode(0);
+        root.left.left.left = TreeNode.createNode(0);
+        root.left.left.right = TreeNode.createNode(0);
 
         return root;
     }
@@ -167,14 +167,14 @@ public class ListNodeUtil {
      * @param node
      * @return
      */
-    public static String serialize(Node node) {
+    public static String serialize(TreeNode node) {
         StringBuilder buf = new StringBuilder();
 
-        Queue<Node> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(node);
 
         Queue<String> outPutQueue = new LinkedList<>();
-        outPutQueue.add(Integer.toString(node.value));
+        outPutQueue.add(Integer.toString(node.val));
 
         // level by level traversal
         int level = 0;
@@ -185,7 +185,7 @@ public class ListNodeUtil {
 
             for (int i = 1; i <= size; i++) {
                 outputQueueSize--;
-                Node tmpNode = queue.poll();
+                TreeNode tmpNode = queue.poll();
                 if (buf.length() > 0) {
                     buf.append(",");
                 }
@@ -193,14 +193,14 @@ public class ListNodeUtil {
 
                 if (tmpNode.left != null) {
                     queue.offer(tmpNode.left);
-                    outPutQueue.add(Integer.toString(tmpNode.left.value));
+                    outPutQueue.add(Integer.toString(tmpNode.left.val));
                 } else {
                     outPutQueue.add("null");
                 }
 
                 if (tmpNode.right != null) {
                     queue.offer(tmpNode.right);
-                    outPutQueue.add(Integer.toString(tmpNode.right.value));
+                    outPutQueue.add(Integer.toString(tmpNode.right.val));
                 } else {
                     outPutQueue.add("null");
                 }

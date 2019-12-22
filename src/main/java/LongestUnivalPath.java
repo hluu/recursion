@@ -1,8 +1,8 @@
-import common.Node;
+import common.TreeNode;
 
 /**
  * Given a binary tree, find the length of the longest path where each node
- * in the path has the same value. This path may or may not pass through the root.
+ * in the path has the same val. This path may or may not pass through the root.
  *
  * The length of path between two nodes is represented by the number of edges
  * between them.
@@ -46,7 +46,7 @@ public class LongestUnivalPath {
     }
 
 
-    private static void test(Node root, int expected) {
+    private static void test(TreeNode root, int expected) {
         System.out.println("root = [" + root + "], expected = [" + expected + "]");
 
         int[] res = new int[1];
@@ -63,14 +63,14 @@ public class LongestUnivalPath {
      *  - post order traversal - useful when needing to know the answer from both children
      *  - extending the streak when constraint is met
      *  - use another variable to store the global solution among all the possible solution
-     *  - return to the parent of the maximum value of the two in order for it to extend it
+     *  - return to the parent of the maximum val of the two in order for it to extend it
      *
      *
      * @param root
      * @param res
      * @return
      */
-    private static int helper(Node root, int[] res) {
+    private static int helper(TreeNode root, int[] res) {
         // leaf node
         if (root == null) {
             return 0;
@@ -81,18 +81,18 @@ public class LongestUnivalPath {
 
         int updatedLeftSide = 0;
         int updatedRightSide = 0;
-        if (root.left != null && root.value == root.left.value) {
+        if (root.left != null && root.val == root.left.val) {
             updatedLeftSide = leftSide + 1;
         }
 
 
-        if (root.right != null && root.value == root.right.value) {
+        if (root.right != null && root.val == root.right.val) {
             updatedRightSide = rightSide + 1;
         }
 
         // extending the streak doesn't make sense
-        //leftSide += (root.left != null && root.value == root.left.value) ? 1 : 0 ;
-        //rightSide += (root.right != null && root.value == root.right.value) ? 1 : 0 ;
+        //leftSide += (root.left != null && root.val == root.left.val) ? 1 : 0 ;
+        //rightSide += (root.right != null && root.val == root.right.val) ? 1 : 0 ;
 
         res[0] = Math.max(updatedLeftSide+updatedRightSide, res[0]);
 
@@ -106,16 +106,16 @@ public class LongestUnivalPath {
     *            / \   \
     *           1   1   5
      */
-    private static Node createTree1() {
-        Node root = Node.createNode(5);
+    private static TreeNode createTree1() {
+        TreeNode root = TreeNode.createNode(5);
 
-        root.left = Node.createNode(4);
-        root.right = Node.createNode(5);
+        root.left = TreeNode.createNode(4);
+        root.right = TreeNode.createNode(5);
 
-        root.left.left = Node.createNode(1);
-        root.left.right = Node.createNode(1);
+        root.left.left = TreeNode.createNode(1);
+        root.left.right = TreeNode.createNode(1);
 
-        root.right.right = Node.createNode(5);
+        root.right.right = TreeNode.createNode(5);
 
         return root;
     }
@@ -127,16 +127,16 @@ public class LongestUnivalPath {
     *            / \   \
     *           4   4   5
      */
-    private static Node createTree2() {
-        Node root = Node.createNode(1);
+    private static TreeNode createTree2() {
+        TreeNode root = TreeNode.createNode(1);
 
-        root.left = Node.createNode(4);
-        root.right = Node.createNode(5);
+        root.left = TreeNode.createNode(4);
+        root.right = TreeNode.createNode(5);
 
-        root.left.left = Node.createNode(4);
-        root.left.right = Node.createNode(4);
+        root.left.left = TreeNode.createNode(4);
+        root.left.right = TreeNode.createNode(4);
 
-        root.right.right = Node.createNode(5);
+        root.right.right = TreeNode.createNode(5);
 
         return root;
     }
@@ -151,22 +151,22 @@ public class LongestUnivalPath {
      *  4]
      * @return
      */
-    private static Node createTree3() {
-        Node root = Node.createNode(5);
+    private static TreeNode createTree3() {
+        TreeNode root = TreeNode.createNode(5);
 
-        root.left = Node.createNode(4);
-        root.right = Node.createNode(5);
+        root.left = TreeNode.createNode(4);
+        root.right = TreeNode.createNode(5);
 
-        root.left.left = Node.createNode(4);
-        root.left.right = Node.createNode(4);
+        root.left.left = TreeNode.createNode(4);
+        root.left.right = TreeNode.createNode(4);
 
-        root.right.left = Node.createNode(5);
-        root.right.right = Node.createNode(3);
+        root.right.left = TreeNode.createNode(5);
+        root.right.right = TreeNode.createNode(3);
 
-        root.left.left.left = Node.createNode(4);
-        root.left.left.right = Node.createNode(4);
+        root.left.left.left = TreeNode.createNode(4);
+        root.left.left.right = TreeNode.createNode(4);
 
-        root.right.left = Node.createNode(5);
+        root.right.left = TreeNode.createNode(5);
 
         return root;
     }

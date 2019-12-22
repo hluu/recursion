@@ -138,7 +138,7 @@ public class WordBeak {
      *   - for each word in the dictionary
      *   - see if input(i, i+len(word) == word
      *     - set marker to true
-     * - use the index with true value as a starting point to continue the checking
+     * - use the index with true val as a starting point to continue the checking
      *
      * Runtime: O(input length * size of the dictionary)
      *
@@ -193,7 +193,7 @@ public class WordBeak {
         // right <= input.length() because the right part is exclusive
         for (int right = 1; right <= input.length(); right++) {
             for (int left = 0; left < right; left++) {
-                // don't bother with marker with false value
+                // don't bother with marker with false val
                 if (markerArr[left]) {
                     callCount++;
 

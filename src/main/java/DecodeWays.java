@@ -32,7 +32,7 @@ import java.util.Map;
  *   - one path 2 characters prefix peeled off
  * - base case
  *   - when a single character remains
- *   - when 2 characters with value < 27
+ *   - when 2 characters with val < 27
  *   - when input can be splitted into its own parts
  *
  *   https://leetcode.com/problems/decode-ways/
@@ -115,7 +115,7 @@ public class DecodeWays {
      *
      * Use a map to store the key and count:
      * - key is the remain string
-     * - value is count
+     * - val is count
      *
      *
      *

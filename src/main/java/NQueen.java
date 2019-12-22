@@ -116,7 +116,7 @@ public class NQueen {
 
 
     /**
-     * Assuming the column value to be >= 0
+     * Assuming the column val to be >= 0
      *
      * @param board
      * @return
