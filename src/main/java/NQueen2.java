@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * This is similar to NQueen, but the logic is slightly difference in that
- * - using List<Integer> for the 1-D board
+ * - using List<Integer> as the the 1-D board
  * - place the queen at a particular column
  * - then check for validity
  */
@@ -12,10 +12,10 @@ public class NQueen2 {
     public static void main(String[] args) {
         System.out.println("NQueen2.main");
 
-        test(3);
+        //test(3);
         test(4);
-        test(5);
-        test(8);
+        //test(5);
+        //test(8);
     }
 
     private static void test(int boardSize) {

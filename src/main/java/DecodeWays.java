@@ -62,8 +62,8 @@ public class DecodeWays {
     private static void test(String input, int expected) {
         System.out.println("input = [" + input + "]");
 
-        //int actual = numWays(input);
-        int actual = numWays(input);
+        //int actual = numWaysDriver(input);
+        int actual = numWaysDriver(input);
 
         System.out.printf("expected: %d, actual: %d\n",
                 expected, actual);
@@ -71,7 +71,7 @@ public class DecodeWays {
         Assert.assertEquals(actual, expected);
     }
 
-    private static int numWays(String input) {
+    private static int numWaysDriver(String input) {
         if (input.isEmpty()) {
             return 0;
         }
@@ -111,7 +111,13 @@ public class DecodeWays {
 
     /**
      * Because of overlapping subproblems, we can leverage DP to store
-     * the previous calcuclated results to speed up the computation
+     * the previous calculated results to speed up the computation.
+     *
+     * Use a map to store the key and count:
+     * - key is the remain string
+     * - value is count
+     *
+     *
      *
      * @param remaining
      * @param cache

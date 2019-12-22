@@ -11,4 +11,9 @@ public class Node {
 
         return n;
     }
+
+    @Override
+    public String toString() {
+        return value + "";
+    }
 }

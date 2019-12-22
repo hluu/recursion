@@ -32,12 +32,12 @@ public class EqualPartitions {
     public static void main(String[] args) {
         System.out.println("EqualPartitions.main");
 
-       // test(new int[] {1, 1, 3, 2, 2}, 3, true);
+        test(new int[] {1, 1, 3, 2, 2}, 3, true);
+        test(new int[] {4, 4, 4, 4, 4}, 4, false);
        // test(new int[] {4, 3, 2, 3, 5, 2, 1}, 4, true);
        // test(new int[] {4, 3, 2, 3, 6, 2}, 4, false);
-       // test(new int[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, 5, false);
-        test(new int[] {605,454,322,218,8,19,651,2220,175,710,2666,350,252,2264,327,1843},
-                4,  true);
+       // test(new int[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, 5, false)//test(new int[] {605,454,322,218,8,19,651,2220,175,710,2666,350,252,2264,327,1843},
+        //        4,  true);
     }
 
     private static void test(int[] input, int k, boolean expected) {
@@ -50,6 +50,7 @@ public class EqualPartitions {
         System.out.printf("equalPartitions time: %d (ms)\n",
                 (endTime-startTime)/100);
 
+        System.out.println();
         startTime = System.nanoTime();
         boolean actual2 = equalPartitionsByBucket(input, k);
         endTime = System.nanoTime();
@@ -128,6 +129,7 @@ public class EqualPartitions {
                     }
 
                     // backtrack
+                    System.out.println("backtrack: " + Arrays.toString(buckets));
                     buckets[bucketIdx] -= candidate;
                 }
             }

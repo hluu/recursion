@@ -135,6 +135,7 @@ public class BinaryString {
     }
 
     private static void mutableDS(int numDigits) {
+
         mutableDSHelper(numDigits, new ArrayList<Integer>());
     }
 

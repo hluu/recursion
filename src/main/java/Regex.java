@@ -16,7 +16,7 @@ import org.testng.Assert;
  * - when input[i] == regex[j] then advance both pointers
  * - when regex[j] == '*' then we have 2 choices
  *   - matching '*' with 1 or more characters by advancing the i pointer by 1
- *   - matching '*' with 0 or more characters by advacning the j pointer by 1
+ *   - matching '*' with 0 or more characters by advancing the j pointer by 1
  *
  *
  * Edge case:
@@ -84,7 +84,8 @@ public class Regex {
         if (pattern.charAt(patIdx) == '*') {
             // include the star, so advance the input index only
             // this will take care of matching 1,2,3 or n characters
-            // for that star
+            // for that star, eventually inputIdx will reach the end of the
+            // input string - that is one path
             boolean excludeResult = regexHelper(input, pattern, inputIdx+1, patIdx);
 
             if (excludeResult) {
@@ -93,8 +94,6 @@ public class Regex {
 
             // exclude the star, so advance both indexes
             return regexHelper(input, pattern, inputIdx, patIdx+1);
-
-
         }
 
         return false;

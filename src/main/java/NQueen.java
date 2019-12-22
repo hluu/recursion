@@ -21,10 +21,11 @@ public class NQueen {
         System.out.println("NQueen.main");
 
         //test(3);
-        test(4);
-        test(5);
-        //test(8);
+        //test(4);
+        //test(5);
+        test(8);
 
+        /*
         int[] board1 = new int[5];
         Arrays.fill(board1, 3);
         testValidBoard(board1, false);
@@ -34,6 +35,9 @@ public class NQueen {
             board2[col] = col;
         }
         testValidBoard(board2, false);
+        */
+
+        test(4);
 
     }
 
@@ -49,6 +53,7 @@ public class NQueen {
         System.out.println("validBoard: " + isValidBoard(board));
 
 
+        System.out.println("==> there are: " + collector.size() + " solutions");
         System.out.println("==> board positions <==");
         for (int[] positions : collector) {
             System.out.println(Arrays.toString(positions));

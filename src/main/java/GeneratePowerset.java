@@ -11,7 +11,8 @@ import java.util.List;
 public class GeneratePowerset {
     public static void main(String[] args) {
         System.out.println(GeneratePowerset.class.getName());
-        test(new int[] {1,2,3}, 8);
+        //test(new int[] {1,2,2}, 8);
+        //test(new int[] {1,2,3}, 8);
         test(new int[] {1,2,3,4}, 16);
 
         generateStringSubsets("abc");

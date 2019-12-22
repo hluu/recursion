@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Generate all subsets of size k
  *
- * Runtime: O(k choose n)
+ * Runtime: O(n choose k)
  */
 public class GenerateSubsetsSizeK {
     public static void main(String[] args) {
         System.out.println("GenerateSubsetsSizeK.main");
 
-        int[] input = new int[] {1,2,3,4,5};
+        int[] input = new int[] {1,2,3,4};
         test(input, 1, nChooseK(input.length,1));
         test(input, 2, nChooseK(input.length,2));
         test(input, 3, nChooseK(input.length,3));
