@@ -95,7 +95,7 @@ public class PermutationWithMutableDS {
     /**
      *
      * This one does not create new objects from modifying the subproblem
-     * and builds the partial solution using intermedate variable called soFar
+     * and builds the partial solution using intermediate variable called soFar
      *
      *
      * @param input

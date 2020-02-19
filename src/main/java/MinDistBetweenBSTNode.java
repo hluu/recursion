@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given a Binary Search Tree (BST) with the root node root, return the minimum difference between the values of any
+ * Given a Binary Search Tree (BST) with the root node root, return the
+ * minimum difference between the values of any
  * two different nodes in the tree.
  *
  *
@@ -51,6 +52,21 @@ public class MinDistBetweenBSTNode {
         System.out.printf("expected: %d, actual: %d\n", expected, actual);
     }
 
+    /**
+     * The intuition is if the numbers are sorted, then
+     * it is easy to find the min distance between any two numbers.
+     *
+     *
+     * Approach:
+     *  - Perform in-order traversal to collect the numbers in sorted order
+     *  - Iterate through the list to perform the comparison
+     *
+     *  Runtime: O(2n) => O(n)
+     *  Space: O(n)
+     *
+     * @param node
+     * @return
+     */
     private static int minDist(TreeNode node) {
         List<Integer> list = new ArrayList<>();
 
