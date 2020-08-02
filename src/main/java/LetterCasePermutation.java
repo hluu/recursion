@@ -1,5 +1,3 @@
-package backtraking;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,6 +87,7 @@ public class LetterCasePermutation {
         return result;
     }
 
+
     private static void helperWithMutableDS(String input, int idx, char[] buffer,
                                             List<String> coll) {
 
@@ -108,5 +107,35 @@ public class LetterCasePermutation {
             }
         }
     }
+    private static List<String> lcpWithStringBuilder(String input) {
+        List<String> result = new ArrayList<>();
+        helperWithStringBuilder(input, 0, new StringBuilder(), result);
+        return result;
+    }
+
+    private static void helperWithStringBuilder(String input, int idx, StringBuilder buf,
+                                                List<String> coll) {
+        if (idx == input.length()) {
+            coll.add(buf.toString());
+        } else {
+            char currChar = input.charAt(idx);
+            if (Character.isAlphabetic(currChar)) {
+                buf.append(Character.toLowerCase(currChar));
+                helperWithStringBuilder(input, idx+1, buf, coll);
+                buf.deleteCharAt(buf.length()-1);
+
+                buf.append(Character.toUpperCase(currChar));
+                helperWithStringBuilder(input, idx+1, buf, coll);
+                buf.deleteCharAt(buf.length()-1);
+
+            } else {
+                buf.append(currChar);
+                helperWithStringBuilder(input, idx+1, buf, coll);
+                buf.deleteCharAt(buf.length()-1);
+            }
+        }
+    }
+
+
 
 }

@@ -1,3 +1,5 @@
+package backtraking;
+
 import org.testng.Assert;
 
 
@@ -18,7 +20,7 @@ public class NQueen {
     private static final int NO_VALUE = -1;
 
     public static void main(String[] args) {
-        System.out.println("NQueen.main");
+        System.out.println("backtraking.NQueen.main");
 
         //test(3);
         //test(4);

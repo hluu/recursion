@@ -128,22 +128,22 @@ public class GeneratePowerset {
      *
      * @param input
      * @param idx
-     * @param collector
+     * @param soFar
      */
     private static void generateStringImmutableDS(String input, int idx,
-                                                  StringBuffer collector) {
+                                                  StringBuffer soFar) {
         if (idx == input.length()) {
-            System.out.println(collector.toString());
+            System.out.println(soFar.toString());
 
             return;
         }
 
         // exclude
-        generateStringImmutableDS(input, idx+1, collector);
+        generateStringImmutableDS(input, idx+1, soFar);
 
         // include
-        collector.append(input.charAt(idx));
-        generateStringImmutableDS(input, idx+1, collector);
-        collector.deleteCharAt(collector.length()-1);
+        soFar.append(input.charAt(idx));
+        generateStringImmutableDS(input, idx+1, soFar);
+        soFar.deleteCharAt(soFar.length()-1);
     }
 }

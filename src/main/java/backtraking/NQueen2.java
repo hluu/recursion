@@ -1,16 +1,19 @@
+package backtraking;
+
+import backtraking.NQueen;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * This is similar to NQueen, but the logic is slightly difference in that
+ * This is similar to backtraking.NQueen, but the logic is slightly difference in that
  * - using List<Integer> as the the 1-D board
  * - place the queen at a particular column
  * - then check for validity
  */
 public class NQueen2 {
     public static void main(String[] args) {
-        System.out.println("NQueen2.main");
+        System.out.println("backtraking.NQueen2.main");
 
         //test(3);
         test(4);
