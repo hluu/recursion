@@ -6,8 +6,8 @@ public class PermutationWithDuplicates {
     public static void main(String[] args) {
         System.out.println("PermutationWithDuplicates.main");
 
-        testPermutationWithDuplicates(new int[] {1,2,1});
-        //testPermutationWithDuplicates(new int[] {1,2,1,2});
+        //testPermutationWithDuplicates(new int[] {1,2,1});
+        testPermutationWithDuplicates(new int[] {1,2,1,2});
         //testPermutationWithDuplicates(new int[] {2,2,3,0});
         //testPermutationWithDuplicates(new int[] {1,2,3,1,2});
     }

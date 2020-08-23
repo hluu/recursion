@@ -1,3 +1,5 @@
+package backtraking;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public class GenerateParentheses {
     public static void main(String[] args) {
-        System.out.println("GenerateParentheses.main");
+        System.out.println("backtraking.GenerateParentheses.main");
 
         for (int i = 1; i <= 3; i++) {
             test(i);
@@ -53,7 +55,7 @@ public class GenerateParentheses {
 
         List<List<Character>> collector2 = new ArrayList<>();
 
-        generateParansMutableDS(n, n, new ArrayList<Character>(), collector2);
+        generateParansMutableDS2(n, n, new ArrayList<Character>(), collector2);
 
         System.out.println("===> output generateParansMutableDS <===");
         for (List<Character> s : collector2) {
@@ -87,35 +89,70 @@ public class GenerateParentheses {
         }
     }
 
-    private static void generateParansMutableDS(int leftParan, int rightParan,
+    private static void generateParansMutableDS(int lCnt, int rCnt,
                                                 List<Character> path,
                                                 List<List<Character>> coll) {
 
         // base cases
         // 1) too many left or right paranthesis
         // 2) number of ')' is more than number of ')'
-        if (leftParan > rightParan || leftParan < 0 || rightParan < 0) {
+        if (lCnt > rCnt || lCnt < 0 || rCnt < 0) {
             return;
         }
 
-        if (leftParan == 0 && rightParan == 0) {
+        if (lCnt == 0 && rCnt == 0) {
             coll.add(new ArrayList<>(path));
             return;
         }
 
         // adding ( until can't do any more
         path.add('(');
-        generateParansMutableDS(leftParan-1, rightParan,
+        generateParansMutableDS(lCnt-1, rCnt,
                 path, coll);
         path.remove(path.size()-1);
 
 
         path.add(')');
-        generateParansMutableDS(leftParan, rightParan-1,
+        generateParansMutableDS(lCnt, rCnt-1,
                 path, coll);
         path.remove(path.size()-1);
 
     }
 
+
+    private static void generateParansMutableDS2(int lCnt, int rCnt,
+                                                List<Character> path,
+                                                List<List<Character>> coll) {
+
+        // backtracking case
+        // 1) too many left or right paranthesis
+        // 2) number of ')' is more than number of ')'
+        if (lCnt > rCnt) {
+            return;
+        }
+
+        // base cases
+        if (lCnt == 0 && rCnt == 0) {
+            coll.add(new ArrayList<>(path));
+            return;
+        }
+
+        if (lCnt > 0) {
+            // adding ( until can't do any more
+            path.add('(');
+            generateParansMutableDS(lCnt - 1, rCnt,
+                    path, coll);
+            path.remove(path.size() - 1);
+        }
+
+
+        if (rCnt > 0) {
+            path.add(')');
+            generateParansMutableDS(lCnt, rCnt - 1,
+                    path, coll);
+            path.remove(path.size() - 1);
+        }
+
+    }
 
 }

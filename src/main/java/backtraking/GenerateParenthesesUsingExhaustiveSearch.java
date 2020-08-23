@@ -1,3 +1,5 @@
+package backtraking;
+
 import common.ArrayUtils;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ import java.util.List;
  */
 public class GenerateParenthesesUsingExhaustiveSearch {
     public static void main(String[] args) {
-        System.out.println("GenerateParenthesesUsingExhaustiveSearch.main");
+        System.out.println("backtraking.GenerateParenthesesUsingExhaustiveSearch.main");
 
         test(1, 1);
         test(2, 2);

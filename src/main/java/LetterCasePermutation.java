@@ -50,6 +50,13 @@ public class LetterCasePermutation {
         for (String s : result2) {
             System.out.println(s);
         }
+
+        System.out.println("=====> helperWithStringBuilder2 <========");
+        List<String> result3 = new ArrayList<>();
+        helperWithStringBuilder2(input.toCharArray(), 0, result3);
+        for (String s : result3) {
+            System.out.println(s);
+        }
     }
 
     private static List<String> letterCasePermutation(String input) {
@@ -132,6 +139,25 @@ public class LetterCasePermutation {
                 buf.append(currChar);
                 helperWithStringBuilder(input, idx+1, buf, coll);
                 buf.deleteCharAt(buf.length()-1);
+            }
+        }
+    }
+
+    private static void helperWithStringBuilder2(char[] input, int idx, List<String> coll) {
+        if (idx == input.length) {
+            coll.add(new String(input));
+        } else {
+            char currChar = input[idx];
+            if (Character.isAlphabetic(currChar)) {
+                input[idx] = Character.toLowerCase(currChar);
+                helperWithStringBuilder2(input, idx+1,  coll);
+
+
+                input[idx] = Character.toUpperCase(currChar);
+                helperWithStringBuilder2(input, idx+1,  coll);
+
+            } else {
+                helperWithStringBuilder2(input, idx+1,  coll);
             }
         }
     }

@@ -1,3 +1,5 @@
+package backtraking;
+
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.List;
  */
 public class GenerateSubsetsSizeK {
     public static void main(String[] args) {
-        System.out.println("GenerateSubsetsSizeK.main");
+        System.out.println("backtraking.GenerateSubsetsSizeK.main");
 
         int[] input = new int[] {1,2,3,4};
         test(input, 1, nChooseK(input.length,1));

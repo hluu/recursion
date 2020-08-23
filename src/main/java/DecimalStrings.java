@@ -12,6 +12,7 @@ public class DecimalStrings {
 
         test(1);
         test(2);
+        test(3);
     }
 
     private static void test(int n) {

@@ -1,3 +1,5 @@
+package backtraking;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
  */
 public class GenerateSubsetWithMutableDS {
     public static void main(String[] args) {
-        System.out.println("GenerateSubsetWithMutableDS.main");
+        System.out.println("backtraking.GenerateSubsetWithMutableDS.main");
 
         test(Arrays.asList(1,2,3,4,5),8);
     }
