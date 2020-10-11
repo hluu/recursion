@@ -1,3 +1,5 @@
+package backtraking;
+
 import org.testng.Assert;
 
 import java.util.Arrays;
@@ -30,10 +32,11 @@ import java.util.stream.IntStream;
  */
 public class EqualPartitions {
     public static void main(String[] args) {
-        System.out.println("EqualPartitions.main");
+        System.out.println("backtraking.EqualPartitions.main");
 
-        test(new int[] {1, 1, 3, 2, 2}, 3, true);
-        test(new int[] {4, 4, 4, 4, 4}, 4, false);
+        test(new int[] {4,3,2,3,5,2,1}, 4, true);
+        //test(new int[] {1, 1, 3, 2, 2}, 3, true);
+        //test(new int[] {4, 4, 4, 4, 4}, 4, false);
        // test(new int[] {4, 3, 2, 3, 5, 2, 1}, 4, true);
        // test(new int[] {4, 3, 2, 3, 6, 2}, 4, false);
        // test(new int[] {5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5}, 5, false)//test(new int[] {605,454,322,218,8,19,651,2220,175,710,2666,350,252,2264,327,1843},
@@ -111,24 +114,26 @@ public class EqualPartitions {
                                                        int[] buckets,
                                                        int bucketTargetSum) {
 
-        // base case
+        // base case - when there are no more subproblems
         if (idx == input.length) {
             return areBucketValid(buckets, bucketTargetSum) ? true : false;
         } else {
             // the choices are different buckets
             int candidate = input[idx];
+            // will try this candidate in all possible buckets
             for (int bucketIdx = 0; bucketIdx < buckets.length; bucketIdx++) {
 
                 if (buckets[bucketIdx] + candidate <= bucketTargetSum) {
                     // make the choice
                     buckets[bucketIdx] += candidate;
 
+                    // backtracking right here
                     if (canPartitionByNaiveApproach(input, idx+1,
                             buckets, bucketTargetSum)) {
                         return true;
                     }
 
-                    // backtrack
+                    // undo
                     System.out.println("backtrack: " + Arrays.toString(buckets));
                     buckets[bucketIdx] -= candidate;
                 }

@@ -40,6 +40,7 @@ public class DiceCount {
         System.out.println("DiceCount.main");
 
         test(2, 7, 6);
+        test(3, 7, 15);
     }
 
     private static void test(int numDice, int sum, int expected) {
@@ -53,6 +54,15 @@ public class DiceCount {
         for (List<Integer> row : coll) {
             System.out.println(row);
         }
+
+        List<List<Integer>> coll2 = new ArrayList<>();
+
+        diceSumUniqueHelper(numDice, sum, new ArrayList<>(), coll2, 1);
+
+        System.out.println("===> output from diceSumUniqueHelper <====");
+        for (List<Integer> row : coll2) {
+            System.out.println(row);
+        }
     }
 
     private static void diceSum(int numDice, int targetSum, List<List<Integer>> coll) {
@@ -60,7 +70,7 @@ public class DiceCount {
     }
 
     private static void diceSumHelper(int numDice, int targetSum, List<Integer> path,
-                                      List<List<Integer>> coll) {
+                                        List<List<Integer>> coll) {
 
         if (numDice == 0) {
             int sumTmp = path.stream().mapToInt(Integer::intValue).sum();
@@ -71,6 +81,23 @@ public class DiceCount {
             for (int value = 1; value <= 6; value++) {
                 path.add(value);
                 diceSumHelper(numDice-1, targetSum, path, coll);
+                path.remove(path.size()-1);
+            }
+        }
+    }
+
+    private static void diceSumUniqueHelper(int numDice, int targetSum, List<Integer> path,
+                                            List<List<Integer>> coll, int lastDiceValue) {
+
+        if (numDice == 0) {
+            int sumTmp = path.stream().mapToInt(Integer::intValue).sum();
+            if (sumTmp == targetSum) {
+                coll.add(new ArrayList<>(path));
+            }
+        } else {
+            for (int value = lastDiceValue; value <= 6; value++) {
+                path.add(value);
+                diceSumUniqueHelper(numDice-1, targetSum, path, coll, value);
                 path.remove(path.size()-1);
             }
         }
