@@ -25,7 +25,7 @@ public class NQueen {
         //test(3);
         //test(4);
         //test(5);
-        test(8);
+       // test(8);
 
         /*
         int[] board1 = new int[5];
@@ -39,7 +39,9 @@ public class NQueen {
         testValidBoard(board2, false);
         */
 
-        test(4);
+        //test(4);
+
+        test(2);
 
     }
 
@@ -53,7 +55,6 @@ public class NQueen {
         placeQueens(board, 0, collector);
 
         System.out.println("validBoard: " + isValidBoard(board));
-
 
         System.out.println("==> there are: " + collector.size() + " solutions");
         System.out.println("==> board positions <==");
