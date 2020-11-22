@@ -46,113 +46,141 @@ public class GenerateParentheses {
 
         List<String> collector = new ArrayList<>();
 
-        generateParans(n, n, "", collector);
+        generateParens(n, n, "", collector);
 
-        System.out.println("===> output generateParans <===");
+        System.out.println("===> output generateParens <===");
         for (String s : collector) {
             System.out.println(s);
         }
 
-        List<List<Character>> collector2 = new ArrayList<>();
+        List<String> collector2 = new ArrayList<>();
+        generateWithRemainParentheses(n, n, new StringBuilder(), collector2);
+        System.out.println("===> output generateWithRemainParentheses <===");
+        for (String s : collector2) {
+            System.out.println(s);
+        }
 
-        generateParansMutableDS2(n, n, new ArrayList<Character>(), collector2);
-
-        System.out.println("===> output generateParansMutableDS <===");
-        for (List<Character> s : collector2) {
-            StringBuilder sb = new StringBuilder();
-            for (Character c : s) {
-                sb.append(c);
-            }
-
-            System.out.println(sb.toString());
+        List<String> collector3 = new ArrayList<>();
+        generateWithUsedParentheses(n, 0, 0, new StringBuilder(), collector2);
+        System.out.println("===> output generateWithUsedParentheses <===");
+        for (String s : collector2) {
+            System.out.println(s);
         }
 
     }
 
-    private static void generateParans(int leftParan, int rightParan,
+    /**
+     * This one uses immutable data structure
+     * @param leftParen
+     * @param rightParen
+     * @param soFar
+     * @param coll
+     */
+    private static void generateParens(int leftParen, int rightParen,
                                        String soFar,
                                        List<String> coll) {
 
-        if (rightParan == 0) {
+        if (rightParen == 0) {
             coll.add(soFar);
             return;
         } else {
-            if (leftParan > 0) {
-                generateParans(leftParan-1, rightParan,
+            if (leftParen > 0) {
+                generateParens(leftParen-1, rightParen,
                         soFar + "(", coll);
             }
 
-            if (rightParan > leftParan) {
-                generateParans(leftParan, rightParan-1,
+            if (rightParen > leftParen) {
+                generateParens(leftParen, rightParen-1,
                         soFar + ")", coll);
             }
         }
     }
 
-    private static void generateParansMutableDS(int lCnt, int rCnt,
-                                                List<Character> path,
-                                                List<List<Character>> coll) {
 
-        // base cases
-        // 1) too many left or right paranthesis
-        // 2) number of ')' is more than number of ')'
-        if (lCnt > rCnt || lCnt < 0 || rCnt < 0) {
-            return;
-        }
-
-        if (lCnt == 0 && rCnt == 0) {
-            coll.add(new ArrayList<>(path));
-            return;
-        }
-
-        // adding ( until can't do any more
-        path.add('(');
-        generateParansMutableDS(lCnt-1, rCnt,
-                path, coll);
-        path.remove(path.size()-1);
-
-
-        path.add(')');
-        generateParansMutableDS(lCnt, rCnt-1,
-                path, coll);
-        path.remove(path.size()-1);
-
-    }
-
-
-    private static void generateParansMutableDS2(int lCnt, int rCnt,
-                                                List<Character> path,
-                                                List<List<Character>> coll) {
+    /**
+     * This approach does the count down of the open and closed parentheses.
+     *
+     * The lCnt and rCnt represent the remaining open and closed parentheses
+     *
+     * @param lCnt
+     * @param rCnt
+     * @param soFar
+     * @param coll
+     */
+    private static void generateWithRemainParentheses(int lCnt, int rCnt,
+                                                                StringBuilder soFar,
+                                                                List<String> coll) {
 
         // backtracking case
-        // 1) too many left or right paranthesis
+        // 1) too many left or right parentheses
         // 2) number of ')' is more than number of ')'
+        // the statement below could be if we didn't check for lCnt > 0 before recurse
+        // if (lCnt > rCnt || lCnt < 0 || rCnt < 0)
+
         if (lCnt > rCnt) {
             return;
         }
 
         // base cases
         if (lCnt == 0 && rCnt == 0) {
-            coll.add(new ArrayList<>(path));
+            coll.add(soFar.toString());
             return;
         }
 
         if (lCnt > 0) {
             // adding ( until can't do any more
-            path.add('(');
-            generateParansMutableDS(lCnt - 1, rCnt,
-                    path, coll);
-            path.remove(path.size() - 1);
+            soFar.append('(');
+            generateWithRemainParentheses(lCnt - 1, rCnt, soFar, coll);
+            soFar.deleteCharAt(soFar.length() - 1);
         }
-
 
         if (rCnt > 0) {
-            path.add(')');
-            generateParansMutableDS(lCnt, rCnt - 1,
-                    path, coll);
-            path.remove(path.size() - 1);
+            soFar.append(')');
+            generateWithRemainParentheses(lCnt, rCnt - 1, soFar, coll);
+            soFar.deleteCharAt(soFar.length() - 1);
         }
-
     }
 
+    /**
+     * This approach counts up from 1 to n.  lCnt and rCnt represent how many open and close
+     * parentheses have been used so far. We need to compare with n
+     *
+     * @param lCnt
+     * @param rCnt
+     * @param soFar
+     * @param coll
+     */
+    private static void generateWithUsedParentheses(int n, int lCnt, int rCnt,
+                                                    StringBuilder soFar,
+                                                    List<String> coll) {
+
+        // backtracking case
+        // 1) too many left or right parentheses
+        // 2) number of ')' is more than number of ')'
+        // the statement below could be if we didn't check for lCnt > 0 before recurse
+        // if (lCnt > rCnt || lCnt < 0 || rCnt < 0)
+
+        if (lCnt < rCnt) {
+            return;
+        }
+
+        // base cases
+        if (lCnt == 0 && rCnt == 0) {
+            coll.add(soFar.toString());
+            return;
+        }
+
+        if (lCnt < n ) {
+            // adding ( until can't do any more
+            soFar.append('(');
+            generateWithUsedParentheses(n, lCnt + 1, rCnt, soFar, coll);
+            soFar.deleteCharAt(soFar.length() - 1);
+        }
+
+        if (rCnt < n) {
+            soFar.append(')');
+            generateWithUsedParentheses(n, lCnt, rCnt + 1, soFar, coll);
+            soFar.deleteCharAt(soFar.length() - 1);
+        }
+    }
 }
