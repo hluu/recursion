@@ -185,13 +185,13 @@ public class EqualPartitions {
      *  - https://github.com/bephrem1/backtobackswe/blob/master/Dynamic%20Programming%2C%20Recursion%2C%20%26%20Backtracking/PartitionIntoKEqualSumSubsets/PartitionIntoKEqualSumSubsets.java
      *
      *
-     * @param nums
+     * @param inputs
      * @param bucketNo
      * @param bucketSumSoFar
      * @param bucketTargetSum
      * @return
      */
-    private static boolean canPartitionByBucket(int[] nums,
+    private static boolean canPartitionByBucket(int[] inputs,
                                                 int startIdx,
                                                 int bucketNo,
                                                 int bucketSumSoFar,
@@ -207,20 +207,20 @@ public class EqualPartitions {
         if (bucketSumSoFar == bucketTargetSum) {
             // notice we reset bucketSumSoFar to 0 when moving on to another
             // bucket
-            return canPartitionByBucket(nums,  0, bucketNo-1, 0,
+            return canPartitionByBucket(inputs,  0, bucketNo-1, 0,
                     bucketTargetSum, visited);
         }
 
-        // try all possible numbers for the current bucket
-        for (int idx = startIdx; idx < nums.length; idx++) {
+        // choices - try all possible numbers for the current bucket
+        for (int idx = startIdx; idx < inputs.length; idx++) {
 
-            if (!visited[idx] && ((bucketSumSoFar + nums[idx]) <= bucketTargetSum)) {
+            if (!visited[idx] && ((bucketSumSoFar + inputs[idx]) <= bucketTargetSum)) {
                 visited[idx] = true;
 
                 // since bucketSumSoFar is an intermediate variable,
                 // no need to back track it
-                if (canPartitionByBucket(nums, startIdx+1, bucketNo,
-                        bucketSumSoFar + nums[idx],
+                if (canPartitionByBucket(inputs, startIdx+1, bucketNo,
+                        bucketSumSoFar + inputs[idx],
                         bucketTargetSum, visited)) {
                     return true;
                 }

@@ -27,21 +27,9 @@ public class NQueen {
         //test(5);
        // test(8);
 
-        /*
-        int[] board1 = new int[5];
-        Arrays.fill(board1, 3);
-        testValidBoard(board1, false);
+        test(4);
 
-        int[] board2 = new int[4];
-        for (int col = 0; col < 4; col++) {
-            board2[col] = col;
-        }
-        testValidBoard(board2, false);
-        */
-
-        //test(4);
-
-        test(2);
+        //test(2);
 
     }
 
@@ -153,7 +141,15 @@ public class NQueen {
     }
 
     public static void printBoard(int[] board) {
+        // header
+
+        for (int i = 0; i < board.length + 2; i++) {
+            System.out.printf("__");
+        }
+
+        System.out.println();
         for (int row = 0; row < board.length; row++) {
+            System.out.printf("| ");
             for (int col = 0; col < board.length; col++) {
                 if (board[row] == col) {
                     System.out.print("Q ");
@@ -161,7 +157,14 @@ public class NQueen {
                     System.out.print(". ");
                 }
             }
+            System.out.printf(" |");
             System.out.println();
         }
+
+        // footer
+        for (int i = 0; i < board.length + 2; i++) {
+            System.out.printf("--");
+        }
+        System.out.println();
     }
 }

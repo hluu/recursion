@@ -16,9 +16,9 @@ public class NQueen2 {
         System.out.println("backtraking.NQueen2.main");
 
         //test(3);
-        test(4);
+        //test(4);
         //test(5);
-        //test(8);
+        test(8);
     }
 
     private static void test(int boardSize) {
