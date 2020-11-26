@@ -50,9 +50,11 @@ public class Sudoku {
             if (row+1 == board.length) {
                 ArrayUtils.printResult(board);
                 return true;  // base case
+            } else {
+                // advancing to the correct col and row
+                col = 0;
+                row = row + 1;
             }
-            col = 0;
-            row = row +1;
         }
 
         if (board[row][col] != '.') { // if digit, next cell
@@ -65,13 +67,12 @@ public class Sudoku {
                 board[row][col] = choice;
                 //System.out.printf("making choice: board[%d][%d]=%c\n", row, col, choice);
                 if (helper(board, row, col + 1, choices)) {
-                    return true;
+                    return true;  // this will short circuit the recursion tree
                 }
             }
         }
-        board[row][col] = '.';
+        board[row][col] = '.';  // undo the choice because we couldn't find a valid combo at this level
         return false;
-
     }
 
     /**
