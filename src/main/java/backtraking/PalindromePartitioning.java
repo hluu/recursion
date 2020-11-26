@@ -33,10 +33,10 @@ public class PalindromePartitioning {
         testPalindrome("civvic");*/
 
        //test("a");
-       //test("aab");
+       test("aab");
         //test("civic");
 
-        subStringRecursion("aab", 0, 0);
+        //subStringRecursion("aab", 0, 0);
     }
 
 

@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Binary string w/ wildcard
+ */
 public class StringFromWildCard {
     public static void main(String[] args) {
         System.out.println("StringFromWildCard.main");

@@ -1,3 +1,5 @@
+package backtraking;
+
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class SubsetSum {
     public static void main(String[] args) {
-        System.out.println("SubsetSum.main");
+        System.out.println("backtraking.SubsetSum.main");
 
         test(new int[] {1,2,3,4,5}, 4);
         testCount(new int[] {1,2,3,4,5}, 4,2);

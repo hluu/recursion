@@ -16,4 +16,14 @@ public class ArrayUtils {
         }
         System.out.println();
     }
+
+    public static void printResult(char[][] input) {
+        for (int row = 0; row < input.length; row++) {
+            for (int col = 0; col < input[0].length; col++) {
+                System.out.print(input[row][col]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+    }
 }
