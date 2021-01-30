@@ -66,7 +66,7 @@ public class CountSortedVowelStrings {
         }
         int totalCnt = 0;
         for (int i = idx; i < vowels.length; i++) {
-            if ((buf.length() == 0)  || vowels[i] >= buf. charAt(buf.length()-1)) {
+            if ((buf.length() == 0)  || vowels[i] >= buf.charAt(buf.length()-1)) {
                 buf.append(vowels[i]);
                 totalCnt += countSortedVowelStrHelper(vowels, n, i, buf);
                 buf.deleteCharAt(buf.length() - 1);
