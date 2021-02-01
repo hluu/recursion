@@ -46,17 +46,22 @@ public class CountSortedVowelStrings {
         System.out.printf("vowels: %s, n: %d\n", Arrays.toString(vowels), n);
 
         int actual = countSortedVowelStr(vowels, n);
-        System.out.printf("expected: %d, actual: %d\n", expected, actual);
+
+        int actual2 = countSortedVowelStr2(vowels, n);
+        System.out.printf("expected: %d, actual: %d, actual2: %d\n", expected, actual,
+                actual2);
 
         System.out.println("");
 
         Assert.assertEquals(actual, expected);
+        Assert.assertEquals(actual2, expected);
     }
 
     private static int countSortedVowelStr(char[] vowels,  int n) {
         int totalCount = countSortedVowelStrHelper(vowels, n, 0, new StringBuilder());
         return  totalCount;
     }
+
 
     private static int countSortedVowelStrHelper(char[] vowels, int n, int idx, StringBuilder buf) {
 
@@ -71,6 +76,27 @@ public class CountSortedVowelStrings {
                 totalCnt += countSortedVowelStrHelper(vowels, n, i, buf);
                 buf.deleteCharAt(buf.length() - 1);
            }
+        }
+
+        return totalCnt;
+    }
+
+    private static int countSortedVowelStr2(char[] vowels,  int n) {
+        int totalCount = countSortedVowelStrHelper2(vowels, n, 0, null);
+        return  totalCount;
+    }
+
+    private static int countSortedVowelStrHelper2(char[] vowels, int n, int idx, Character lastChar) {
+
+        if (0  == n) {
+            return 1;
+        }
+
+        int totalCnt = 0;
+        for (int i = idx; i < vowels.length; i++) {
+            if ((lastChar == null)  || vowels[i] >= lastChar.charValue()) {
+                totalCnt += countSortedVowelStrHelper2(vowels, n-1, i, vowels[i]);
+            }
         }
 
         return totalCnt;

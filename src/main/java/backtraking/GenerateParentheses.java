@@ -71,26 +71,26 @@ public class GenerateParentheses {
 
     /**
      * This one uses immutable data structure
-     * @param leftParen
-     * @param rightParen
+     * @param leftParenRemain
+     * @param rightParenRemain
      * @param soFar
      * @param coll
      */
-    private static void generateParens(int leftParen, int rightParen,
+    private static void generateParens(int leftParenRemain, int rightParenRemain,
                                        String soFar,
                                        List<String> coll) {
 
-        if (rightParen == 0) {
+        if (rightParenRemain == 0) {
             coll.add(soFar);
             return;
         } else {
-            if (leftParen > 0) {
-                generateParens(leftParen-1, rightParen,
+            if (leftParenRemain > 0) {
+                generateParens(leftParenRemain-1, rightParenRemain,
                         soFar + "(", coll);
             }
 
-            if (rightParen > leftParen) {
-                generateParens(leftParen, rightParen-1,
+            if (rightParenRemain > leftParenRemain) {
+                generateParens(leftParenRemain, rightParenRemain-1,
                         soFar + ")", coll);
             }
         }
