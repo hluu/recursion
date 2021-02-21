@@ -37,6 +37,11 @@ import java.util.*;
  *
  * - start from JFK
  *
+ * Complexity analysis:
+ * - n tickets, worse case scenario a->b,c,d,e,f
+ *   - priority queue would contains n-1 flights
+ * - O(ticket length * log(ticket.length))
+ *
  */
 public class FlyItinerary {
     public static void main(String[] args) {
@@ -65,13 +70,6 @@ public class FlyItinerary {
 
         test(itinerary3, Arrays.asList("JFK","NRT","JFK","KUL"));
 
-        PriorityQueue<String> queue = new PriorityQueue<>();
-        queue.add("NRT");
-        queue.add("KUL");
-
-        while (!queue.isEmpty()) {
-            System.out.println("airport: " + queue.poll());
-        }
     }
 
     private static void test(List<List<String>> itinerary, List<String> expected) {
@@ -93,39 +91,39 @@ public class FlyItinerary {
             String to = ticket.get(1);
 
             if (!flyMap.containsKey(from)) {
-                PriorityQueue<String> toList = new PriorityQueue<>();
-                toList.add(to);
-                flyMap.put(from, toList);
-            } else {
-                flyMap.get(from).add(to);
+                flyMap.put(from, new PriorityQueue<>());
             }
+            flyMap.get(from).add(to);
         }
 
-        List<String> itineraryList = new ArrayList<>();
+        LinkedList<String> itineraryList = new LinkedList<>();
         //itineraryList.add("JFK");
         helper(flyMap, "JFK", itineraryList);
         return itineraryList;
     }
 
     private static void helper(Map<String, PriorityQueue<String>> flyMap, String from,
-                               List<String> soFar) {
+                               LinkedList<String> soFar) {
 
-       /* while (flyMap.containsKey(from) && !flyMap.get(from).isEmpty()) {
-            helper(flyMap, flyMap.get(from).poll(), soFar);
+        PriorityQueue<String> toList = flyMap.get(from);
+        /*
+
+         while (toList != null && !toList.isEmpty()) {
+            helper(flyMap, toList.poll(), soFar);
         }
-        soFar.add(0, from);*/
+        soFar.addFirst(from);
 
-        if (!flyMap.containsKey(from) || flyMap.get(from).isEmpty()) {
-            soFar.add(0, from);
-            return;
+         */
+
+
+        if (toList == null || toList.isEmpty()) {
+            soFar.addFirst(from);
         } else {
-            PriorityQueue<String> toList = flyMap.get(from);
             while (!toList.isEmpty()) {
                 String to = toList.poll();
                 helper(flyMap, to, soFar);
             }
-            soFar.add(0, from);
-
+            soFar.addFirst(from);
         }
     }
 
